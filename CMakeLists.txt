@@ -16,4 +16,8 @@ add_executable(QuadrupedSimulator main.cpp
         SKELConverter/ConversionPipeline/PipelineOrchestrator/DLQScheduler.cpp
         SKELConverter/ConversionPipeline/PipelineOrchestrator/DLQScheduler.h
         SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListenerQueue.cpp
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListenerQueue.h)
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListenerQueue.h
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ValidatorListener.cpp
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ValidatorListener.h
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.tpp
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h)
