@@ -5,4 +5,12 @@
 #include "PipelineOrchestrator.h"
 
 namespace ConversionPipeline {
-} // ConversionPipeline
+    class PipelineOrchestrator {
+
+    private: void getTraffic(){};
+    };
+
+
+}
+
+
