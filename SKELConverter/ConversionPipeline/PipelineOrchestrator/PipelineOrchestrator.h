@@ -6,11 +6,6 @@
 #define PIPELINEORCHESTRATOR_H
 
 namespace ConversionPipeline {
-
-class PipelineOrchestrator {
-
-};
-
 } // ConversionPipeline
 
 #endif //PIPELINEORCHESTRATOR_H
