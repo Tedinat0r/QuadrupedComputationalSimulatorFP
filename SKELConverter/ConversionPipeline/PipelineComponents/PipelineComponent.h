@@ -7,8 +7,16 @@
 
 
 namespace ConversionPipeline {
+    template <typename T>
     class PipelineComponent {
-
+    PipelineComponent output;
+    T state;
+        public:
+        bool sealed;
+        PipelineComponent();
+        void joinOutput(PipelineComponent output);
+        void flush();
+        void releaseState();
     };
 };
 
