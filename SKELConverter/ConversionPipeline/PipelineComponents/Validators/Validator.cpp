@@ -5,4 +5,9 @@
 #include "Validator.h"
 
 namespace ConversionPipeline {
+    template<typename Message>
+    void Validator<Message>::notifyListener(Message message) {
+        this->listener.receiveMessage(message);
+    }
+
 } // ConversionPipeline

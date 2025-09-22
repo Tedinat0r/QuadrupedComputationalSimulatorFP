@@ -20,4 +20,9 @@ add_executable(QuadrupedSimulator main.cpp
         SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ValidatorListener.cpp
         SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ValidatorListener.h
         SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.tpp
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h)
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Tracker.h
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Bodies.h
+        SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Joint.h
+        SKELConverter/ConversionPipeline/Message/Message.cpp
+        SKELConverter/ConversionPipeline/Message/Message.h)
