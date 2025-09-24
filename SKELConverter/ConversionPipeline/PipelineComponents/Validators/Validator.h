@@ -7,13 +7,15 @@
 #include "../PipelineComponent.h"
 #include "../../../ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h"
 namespace ConversionPipeline {
-    template<typename Message>
-    class Validator : public PipelineComponent {
-        ConcreteValidatorListener<Message> listener;
+    template<typename Message, typename T>
+    class Validator : public PipelineComponent<T> {
+        ConcreteValidatorListener<Message, T> listener;
         void notifyListener(Message message);
     public:
-        void setListener(ConcreteValidatorListener<Message> listener);
+        void setListener(ConcreteValidatorListener<Message, T> listener);
+        bool validate(T obj);
     };
+
 
 } // ConversionPipeline
 

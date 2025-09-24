@@ -8,16 +8,17 @@
 
 
 namespace ConversionPipeline {
-    template <typename Message>
-    void ConcreteValidatorListener<Message>::receiveMessage(Message& message){
+    template <typename Message, typename T>
+    void ConcreteValidatorListener<Message, T>::receiveMessage(Message& message){
         this->message = message;
     }
-    template <typename Message>
-    Message ConcreteValidatorListener<Message>::passMessage(){
+    template <typename Message, typename T>
+    Message ConcreteValidatorListener<Message, T>::passMessage(){
+        this->validator.releaseState();
         return this->message;
     }
-    template <typename Message>
-    void ConcreteValidatorListener<Message>::clearMessage() {
+    template <typename Message, typename T>
+    void ConcreteValidatorListener<Message, T>::clearMessage() {
         this->message = NULL;
     }
 };

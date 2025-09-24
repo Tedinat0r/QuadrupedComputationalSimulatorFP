@@ -25,4 +25,9 @@ add_executable(QuadrupedSimulator main.cpp
         SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Bodies.h
         SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Joint.h
         SKELConverter/ConversionPipeline/Message/Message.cpp
-        SKELConverter/ConversionPipeline/Message/Message.h)
+        SKELConverter/ConversionPipeline/Message/Message.h
+        SKELConverter/ConversionPipeline/Message/ValidatorStatusMessage.cpp
+        SKELConverter/ConversionPipeline/Message/ValidatorStatusMessage.h
+)
+
+target_include_directories(QuadrupedSimulator PRIVATE  C:/Users/teddy/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include)

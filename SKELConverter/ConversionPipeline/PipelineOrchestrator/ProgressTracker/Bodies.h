@@ -9,6 +9,7 @@
 
 namespace ConversionPipeline {
     struct Body {
+        bool isParsed;
         bool hasJoints;
         bool hasMaterials;
         bool hasMass;

@@ -4,21 +4,22 @@
 
 #ifndef PIPELINEORCHESTRATOR_H
 #define PIPELINEORCHESTRATOR_H
+#include <map>
 #include <string>
 #include "ValidatorListenerQueue.h"
+#include "../Message/ValidatorStatusMessage.h"
 #include "ProgressTracker/Tracker.h"
-#include <map>
 
 namespace ConversionPipeline {
+    template <typename obj>
     class PipelineOrchestrator {
     private:
         ValidatorListenerQueue<ConcreteValidatorListener<std::string>> validatorListenerQueue;
         std::map<std::string, ProgressTracker> trackers;
 
         void makeTracker(std::string id);
-        void initListenerQueue() {
-
-        }
+        void updateTracker(ValidatorStatusMessage<obj> message);
+        void progressPipeline();
     public:
 
     };
