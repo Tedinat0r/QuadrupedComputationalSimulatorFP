@@ -7,18 +7,18 @@
 
 #include "ValidatorListener/ConcreteValidatorListener.h"
 #include <list>
+#include "../Message/ValidatorStatusMessage.h"
 
 namespace ConversionPipeline {
-template<typename Message>
+template<typename T, typename obj>
 class ValidatorListenerQueue {
 private:
-    std::list<ConcreteValidatorListener<Message>> Listeners;
+    std::list<ConcreteValidatorListener<ValidatorStatusMessage<obj>, T>> Listeners;
 public:
-    void addListener(ConcreteValidatorListener<Message> listener);
-    void removeListener(ConcreteValidatorListener<Message> listener);
-    bool confirmReceipt(Message message);
-    Message getMessage();
-    void dequeueMessage();
+    void addListener(ConcreteValidatorListener<ValidatorStatusMessage<obj>, T> listener);
+    void removeListener(ConcreteValidatorListener<ValidatorStatusMessage<obj>, T> listener);
+    bool confirmReceipt(ValidatorStatusMessage<obj> message);
+    ValidatorStatusMessage<obj> getMessage();
 
 
 };

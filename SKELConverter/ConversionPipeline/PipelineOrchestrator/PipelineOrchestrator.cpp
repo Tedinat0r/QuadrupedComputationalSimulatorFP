@@ -7,8 +7,8 @@
 using namespace std;
 
 namespace ConversionPipeline {
-    template <typename obj>
-    void PipelineOrchestrator<obj>::makeTracker(std::string id) {
+    template <typename obj, typename T>
+    void PipelineOrchestrator<obj, T>::makeTracker(std::string id) {
         Body torso = Body(
             false,
             false,
@@ -53,8 +53,8 @@ namespace ConversionPipeline {
             false);
         this->trackers.insert({id, tracker});
     }
-    template<typename obj>
-    void PipelineOrchestrator<obj>::updateTracker(ValidatorStatusMessage<obj> message) {
+    template<typename obj, typename T>
+    void PipelineOrchestrator<obj, T>::updateTracker(ValidatorStatusMessage<obj> message) {
         string trackerId = message.metadata["trackerID"];
         string part = message.metadata["affectedBody"];
         string process = message.metadata["process"];
@@ -90,11 +90,42 @@ namespace ConversionPipeline {
                 targetBody.hasMass = true;
                 targetBody.hasMaterials = true;
         }
-    }
-    template<typename obj>
-    void PipelineOrchestrator<obj>::progressPipeline() {
+    };
+    template<typename obj, typename T>
+    ConcreteValidatorListener<T, obj> PipelineOrchestrator<obj, T>::readQueue(){
+        ConcreteValidatorListener<T, obj> currentListener =this->validatorListenerQueue.Listeners.front;
+        return currentListener;
+
+    };
+    template<typename obj, typename T>
+    void PipelineOrchestrator<obj, T>::progressPipeline() {
+        ConcreteValidatorListener<T, obj> currentListener = this->readQueue();
+        ValidatorStatusMessage<obj> message = currentListener.message;
+        this->updateTracker(message);
+        string process = message.metadata["process"] ;
+        string nextProcess;
+        for (int i = 1; i < 4; i++) {
+            if (this->keyIndexes[i-1] == process) {
+                nextProcess = this->keyIndexes[i];
+            }
+        }
+        this->pipelineComponentStatuses[process] = false;
+        Validator<T, obj> validator = currentListener.validator;
+        T validatorState = validator.template state<T>;
+        if (!this->validatorStatuses[nextProcess].empty()) {
+            validator.flush();
+            this->validatorStatuses[nextProcess].push_back(validatorState);
+            validator.state = validatorStatuses["nextProcess"].front();
+            validator.releaseState();
+            validatorStatuses["nextProcess"].erase(validatorStatuses["nextProcess"].begin());
+        }else {
+            validator.releaseState();
+        }
+        this->validatorListenerQueue.Listeners.pop_front();
 
     }
+
+
 
 
 }

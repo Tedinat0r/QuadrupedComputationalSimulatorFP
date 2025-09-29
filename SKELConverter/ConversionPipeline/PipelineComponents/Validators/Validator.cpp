@@ -3,7 +3,7 @@
 //
 
 #include "Validator.h"
-
+#include "../../../ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h"
 namespace ConversionPipeline {
     template<typename Message, typename T>
     void Validator<Message, T>::notifyListener(Message message) {

@@ -3,16 +3,17 @@
 //
 
 #include "ValidatorListenerQueue.h"
+#include "../Message/ValidatorStatusMessage.h"
 
 namespace ConversionPipeline {
-    template<typename Message>
-    void ValidatorListenerQueue<Message>::addListener(ConcreteValidatorListener<Message> listener) {
+    template<typename T, typename obj>
+    void ValidatorListenerQueue<T, obj>::addListener(ConcreteValidatorListener<Message,T> listener) {
         this.Listeners.push_back(listener);
     }
-    template<typename Message>
-    void ValidatorListenerQueue<Message>::removeListener(ConcreteValidatorListener<Message> listener) {
+    template<typename Message, typename T, typename obj>
+    void ValidatorListenerQueue< T, obj>::removeListener(ConcreteValidatorListener<Message, T> listener) {
         auto iterator = this.Listeners.begin();
-        for (ConcreteValidatorListener<Message> item : this->Listeners) {
+        for (ConcreteValidatorListener<Message, T> item : this->Listeners) {
             ++iterator;
             if (item == listener) {
                 break;
@@ -20,19 +21,19 @@ namespace ConversionPipeline {
         }
         this->Listeners.erase(iterator);
     }
-    template<typename Message>
-    bool ValidatorListenerQueue<Message>::confirmReceipt(Message message) {
-        for (ConcreteValidatorListener<Message> listener : this->Listeners) {
+    template<typename Message, typename T, typename obj>
+    bool ValidatorListenerQueue<Message, T, obj>::confirmReceipt(Message message) {
+        for (ConcreteValidatorListener<Message, T> listener : this->Listeners) {
             if (listener.passMessage() == message) {
                 return true;
             }
         }
         return false;
     }
-    template<typename Message>
-    Message ValidatorListenerQueue<Message>::getMessage() {
-        ConcreteValidatorListener<Message> currentListener = this->Listeners.pop_front();
-        Message message = currentListener.passMessage();
+    template<typename Message, typename T, typename obj>
+    ValidatorStatusMessage<obj> ValidatorListenerQueue<Message, T, obj>::getMessage() {
+        ConcreteValidatorListener<Message, T> currentListener = this->Listeners.pop_front();
+        ValidatorStatusMessage<obj> message = currentListener.passMessage();
         this->Listeners.push_back(currentListener);
         return message;
     }

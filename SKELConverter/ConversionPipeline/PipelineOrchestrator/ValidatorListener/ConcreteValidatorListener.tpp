@@ -3,23 +3,24 @@
 //
 
 #include "ConcreteValidatorListener.h"
+#include "../../Message/ValidatorStatusMessage.h"
 
 #include <stddef.h>
 
 
 namespace ConversionPipeline {
-    template <typename Message, typename T>
-    void ConcreteValidatorListener<Message, T>::receiveMessage(Message& message){
+    template <typename T, typename obj>
+    void ConcreteValidatorListener<T, obj>::receiveMessage(ValidatorStatusMessage<obj>& message){
         this->message = message;
     }
-    template <typename Message, typename T>
-    Message ConcreteValidatorListener<Message, T>::passMessage(){
+    template <typename T, typename obj>
+    ValidatorStatusMessage<obj> ConcreteValidatorListener<T, obj>::passMessage(){
         this->validator.releaseState();
         return this->message;
     }
-    template <typename Message, typename T>
-    void ConcreteValidatorListener<Message, T>::clearMessage() {
-        this->message = NULL;
+    template <typename T, typename obj>
+    void ConcreteValidatorListener<T, obj>::clearMessage() {
+        this->message = nullptr;
     }
 };
 

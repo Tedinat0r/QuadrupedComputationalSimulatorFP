@@ -6,22 +6,22 @@
 #define CONCRETEVALIDATORLISTENER_H
 #include "ValidatorListener.h"
 #include "../../PipelineComponents/Validators/Validator.h"
+#include "../Message/ValidatorStatusMessage.h"
 
 namespace ConversionPipeline {
-    template <typename Message, typename T>
-    class ConcreteValidatorListener : public ValidatorListener<Message> {
+    template <typename T, typename obj>
+    class ConcreteValidatorListener : public ValidatorListener<obj> {
         private:
-            Message message;
-            Validator<Message, T> validator;
+            ValidatorStatusMessage<obj> message;
+            Validator<T, obj> validator;
         public:
-            void receiveMessage(Message& message) override;
-            void setPub(Validator<Message, T> pub);
+            void receiveMessage(ValidatorStatusMessage<obj>& message) override;
+            void setPub(Validator<T, obj> pub);
         protected:
             void clearMessage() override;
-            Message passMessage() override;
+            ValidatorStatusMessage<obj> passMessage() override;
     };
 }
-
 
 #include "ConcreteValidatorListener.tpp"
 #endif //CONCRETEVALIDATORLISTENER_H

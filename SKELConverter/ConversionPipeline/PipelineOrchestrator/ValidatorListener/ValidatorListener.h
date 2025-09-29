@@ -4,15 +4,16 @@
 
 #ifndef VALIDATORLISTENER_H
 #define VALIDATORLISTENER_H
+#include "../../Message/ValidatorStatusMessage.h"
 
 namespace ConversionPipeline {
-    template <typename Message>
+    template<typename obj>
     class ValidatorListener {
     public:
-        virtual void receiveMessage(Message& message);
+        virtual void receiveMessage(ValidatorStatusMessage<obj>& message);
     protected:
         virtual void clearMessage();
-        virtual Message passMessage();
+        virtual ValidatorStatusMessage<obj> passMessage();
     };
 } // ConversionPipeline
 

@@ -5,14 +5,18 @@
 #ifndef VALIDATOR_H
 #define VALIDATOR_H
 #include "../PipelineComponent.h"
-#include "../../../ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h"
+#include "../../Message/ValidatorStatusMessage.h"
+
 namespace ConversionPipeline {
-    template<typename Message, typename T>
+    template<typename T,typename obj>
+    class ConcreteValidatorListener<T>;
+    template<typename T, typename obj>
     class Validator : public PipelineComponent<T> {
-        ConcreteValidatorListener<Message, T> listener;
-        void notifyListener(Message message);
+        ConcreteValidatorListener<T, obj> listener;
+        void notifyListener(ValidatorStatusMessage<obj> message);
     public:
-        void setListener(ConcreteValidatorListener<Message, T> listener);
+        Validator<T>();
+        void setListener(ConcreteValidatorListener<T, obj> listener);
         bool validate(T obj);
     };
 
