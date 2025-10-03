@@ -7,8 +7,8 @@
 #include "../PipelineComponent.h"
 
 namespace ConversionPipeline {
-
-    class Processor: PipelineComponent {
+    template<typename T>
+    class Processor: PipelineComponent<T> {
 
     };
 

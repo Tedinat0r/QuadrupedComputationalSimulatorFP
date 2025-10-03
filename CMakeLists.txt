@@ -28,6 +28,23 @@ add_executable(QuadrupedSimulator main.cpp
         SKELConverter/ConversionPipeline/Message/Message.h
         SKELConverter/ConversionPipeline/Message/ValidatorStatusMessage.cpp
         SKELConverter/ConversionPipeline/Message/ValidatorStatusMessage.h
+        SKELConverter/ConversionPipeline/ConversionPipeline.cpp
+        SKELConverter/ConversionPipeline/ConversionPipeline.h
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BodyProcessor.cpp
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BodyProcessor.h
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/OBJParser.cpp
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/OBJParser.h
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/HeaderParser.cpp
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/HeaderParser.h
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/BlockerParser.cpp
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/BlockerParser.h
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/DataVisitor.cpp
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/DataVisitor.h
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/FaceAssembler.cpp
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/FaceAssembler.h
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/GraphMaker.cpp
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/GraphMaker.h
+        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BoundingBox/BoundingBox.h
 )
 
 target_include_directories(QuadrupedSimulator PRIVATE  C:/Users/teddy/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include)
