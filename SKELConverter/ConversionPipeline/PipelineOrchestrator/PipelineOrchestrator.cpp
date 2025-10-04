@@ -3,7 +3,11 @@
 //
 
 #include "PipelineOrchestrator.h"
+
+#include <ranges>
 #include <boost/pfr.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
 using namespace std;
 
 namespace ConversionPipeline {
@@ -74,35 +78,35 @@ namespace ConversionPipeline {
                     targetBody = boost::pfr::get<4>(trackerBodies);
                 default:
                     raise(1);
+                }
+            switch (process) {
+                case "bodyParsed":
+                    targetBody.isParsed = true;
+                    case "jointsParsed":
+                    /*writing logic once jointParser is written*/
+                    vector<Joint> bodyJoints = targetBody.Joints;
+                    /*add an exception block*/
+                    targetBody.hasJoints = true;
+                    case "romCalculator":
+                    /* Add joint struct access logic */
+                    return;
+                    case "mmCaclulator":
+                    targetBody.hasMass = true;
+                    targetBody.hasMaterials = true;
             }
-        switch (process) {
-            case "bodyParsed":
-                targetBody.isParsed = true;
-                case "jointsParsed":
-                /*writing logic once jointParser is written*/
-                vector<Joint> bodyJoints = targetBody.Joints;
-                /*add an exception block*/
-                targetBody.hasJoints = true;
-                case "romCalculator":
-                /* Add joint struct access logic */
-                return;
-                case "mmCaclulator":
-                targetBody.hasMass = true;
-                targetBody.hasMaterials = true;
-        }
     };
     template<typename obj, typename T>
-    ConcreteValidatorListener<T, obj> PipelineOrchestrator<obj, T>::readQueue(){
-        ConcreteValidatorListener<T, obj> currentListener =this->validatorListenerQueue.Listeners.front;
+    ConcreteValidatorListener<T, obj>* PipelineOrchestrator<obj, T>::readQueue(){
+        ConcreteValidatorListener<T, obj> *currentListener =this->validatorListenerQueue.Listeners.front;
         return currentListener;
 
     };
     template<typename obj, typename T>
     void PipelineOrchestrator<obj, T>::progressPipeline() {
-        ConcreteValidatorListener<T, obj> currentListener = this->readQueue();
+        ConcreteValidatorListener<T, obj>* currentListener = this->readQueue();
         ValidatorStatusMessage<obj> message = currentListener.message;
         this->updateTracker(message);
-        string process = message.metadata["process"] ;
+        string process = message.metadata["process"];
         string nextProcess;
         for (int i = 1; i < 4; i++) {
             if (this->keyIndexes[i-1] == process) {
@@ -115,15 +119,49 @@ namespace ConversionPipeline {
         if (!this->validatorStatuses[nextProcess].empty()) {
             validator.flush();
             this->validatorStatuses[nextProcess].push_back(validatorState);
-            validator.state = validatorStatuses["nextProcess"].front();
+            validator.state = validatorStatuses[nextProcess].front();
             validator.releaseState();
-            validatorStatuses["nextProcess"].erase(validatorStatuses["nextProcess"].begin());
+            validatorStatuses[nextProcess].erase(validatorStatuses[nextProcess].begin());
         }else {
             validator.releaseState();
         }
         this->validatorListenerQueue.Listeners.pop_front();
 
     }
+    template<typename obj, typename T>
+    bool PipelineOrchestrator<obj, T>::checkQueues() {
+        for (bool value : std::ranges::views::values(this->pipelineComponentStatuses)) {
+            if (value == true) {
+                return false;
+            }
+        for (std::list<ValidatorStatusMessage<obj>> list : std::ranges::views::values(this->validatorStatuses)){
+            if (!list.empty()) {
+                return false;
+            }
+        }
+        if (!this->trackers.empty()) {
+            return false;
+        }
+        return true;
+        };
+    }
+    template<typename obj, typename T>
+    void PipelineOrchestrator<obj, T>::runEventLoop() {
+        while (!this->checkQueues()) {
+            if (!this->pipelineComponentStatuses["bodyParsing"]) {
+                /*Logic for adding new obj file to cache/pipeline
+                 *
+                 *
+                 *
+                 */
+                boost::uuids::uuid id = boost::uuids::random_generator()();
+                std::string id_string = boost::uuids::string_generator();
+            }
+            this->progressPipeline();
+
+        }
+    }
+
 
 
 

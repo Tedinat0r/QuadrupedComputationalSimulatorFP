@@ -6,7 +6,7 @@
 #include "../../../ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h"
 namespace ConversionPipeline {
     template<typename Message, typename T>
-    void Validator<Message, T>::notifyListener(Message message) {
+    void Validator<T,Message>::notifyListener(Message message) {
         this->listener.receiveMessage(message);
     }
     template<typename Message, typename T>

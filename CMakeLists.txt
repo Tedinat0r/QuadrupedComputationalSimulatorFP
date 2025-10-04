@@ -45,6 +45,7 @@ add_executable(QuadrupedSimulator main.cpp
         SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/GraphMaker.cpp
         SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/GraphMaker.h
         SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BoundingBox/BoundingBox.h
+        SKELConverter/ConversionPipeline/Tests/PipelineComponents/PipelineComponentFlowTests.cpp
 )
 
 target_include_directories(QuadrupedSimulator PRIVATE  C:/Users/teddy/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include)

@@ -24,6 +24,16 @@ namespace ConversionPipeline {
             }
         }
     }
+    template<typename T>
+    void PipelineComponent<T>::setState(T state) {
+        this->state = state;
+    }
+    template<typename T>
+    T PipelineComponent<T>::getState() {
+        return this->state;
+    }
+
+
 
 
 }

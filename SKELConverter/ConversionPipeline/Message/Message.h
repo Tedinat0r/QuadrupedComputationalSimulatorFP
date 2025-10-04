@@ -6,7 +6,8 @@
 #define MESSAGE_H
 #include <ctime>
 #include <map>
-#include <string> as string;
+#include <string>
+using std::string;
 namespace ConversionPipeline {
 template <typename obj>
 class Message {

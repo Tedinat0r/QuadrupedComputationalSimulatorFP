@@ -6,7 +6,7 @@
 #define CONCRETEVALIDATORLISTENER_H
 #include "ValidatorListener.h"
 #include "../../PipelineComponents/Validators/Validator.h"
-#include "../Message/ValidatorStatusMessage.h"
+#include "../../Message/ValidatorStatusMessage.h"
 
 namespace ConversionPipeline {
     template <typename T, typename obj>

@@ -32,11 +32,13 @@ namespace ConversionPipeline {
         /* Micro functions*/
         void makeTracker(std::string id);
         void updateTracker(ValidatorStatusMessage<obj> message);
-        ConcreteValidatorListener<T, obj> readQueue();
+        ConcreteValidatorListener<T, obj>* readQueue();
         /* Macro functions */
         void progressPipeline();
+        bool checkQueues();
     public:
-
+        std::list<obj> objs;
+        void runEventLoop();
     };
 } // ConversionPipeline
 
