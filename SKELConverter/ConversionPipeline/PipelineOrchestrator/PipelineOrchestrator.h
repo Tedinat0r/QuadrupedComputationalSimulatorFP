@@ -22,6 +22,7 @@ namespace ConversionPipeline {
             {"romCalculator", false},
             {"mmCalculator", false}
         };
+        /*Replace message template with OBJ wrapper*/
         std::map<std::string, std::list<ValidatorStatusMessage<obj>>> validatorStatuses = {
             {"bodyParsing", new std::list<ValidatorStatusMessage<obj>>},
             {"jointDetection", new std::list<ValidatorStatusMessage<obj>>},
@@ -29,9 +30,11 @@ namespace ConversionPipeline {
             {"mmCalculator", new std::list<ValidatorStatusMessage<obj>>}
         };
         std::vector<std::string> keyIndexes = {"bodyParsing", "jointDetection", "romCalculator", "mmCalculator"};
+        std::list<std::string> cleanupQueue = {};
         /* Micro functions*/
         void makeTracker(std::string id);
         void updateTracker(ValidatorStatusMessage<obj> message);
+        void destroyTracker(std::string id);
         ConcreteValidatorListener<T, obj>* readQueue();
         /* Macro functions */
         void progressPipeline();

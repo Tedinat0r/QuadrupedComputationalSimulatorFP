@@ -5,7 +5,7 @@
 #include "PipelineComponent.h"
 namespace ConversionPipeline {
     template<typename T>
-    void PipelineComponent<T>::joinOutput(PipelineComponent output) {
+    void PipelineComponent<T>::joinOutput(PipelineComponent* output) {
         this->output = output;
     }
     template<typename T>
@@ -17,8 +17,8 @@ namespace ConversionPipeline {
     void PipelineComponent<T>::releaseState() {
         if (this->state != nullptr) {
             if (this->output != nullptr) {
-                if (!this->output.sealed) {
-                    this->output.state = this->state;
+                if (!this->output->sealed) {
+                    this->output->state = this->state;
                     this->state = nullptr;
                 }
             }

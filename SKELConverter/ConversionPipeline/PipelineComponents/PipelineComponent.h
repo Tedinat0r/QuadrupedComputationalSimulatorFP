@@ -9,16 +9,15 @@
 namespace ConversionPipeline {
     template <typename T>
     class PipelineComponent {
-    T state;
+        T state;
         public:
         bool sealed;
-        PipelineComponent();
-        void joinOutput(PipelineComponent output);
+        void joinOutput(PipelineComponent* output);
         void flush();
         void releaseState();
         void setState(T state);
         T getState();
-        PipelineComponent output;
+        PipelineComponent* output;
     };
 };
 

@@ -2,8 +2,11 @@
 // Created by teddy on 04/10/2025.
 //
 
+#include <iostream>
+
 #include "../../ConversionPipeline.h"
 #include <vector>
+#include "../../PipelineComponents/PipelineComponent.cpp"
 
 using namespace ConversionPipeline;
 using std::vector;
@@ -14,9 +17,13 @@ vector<PipelineComponent<T>> buildBasicPipeline() {
     for (int i = 0; i < 5; i++) {
         pipelineComponents.push_back(PipelineComponent<T>());
     }
+    std::cout << pipelineComponents.size() << std::endl;
     for (int i = 0; i < pipelineComponents.size() - 1; i++) {
-        pipelineComponents[i].joinOutput(pipelineComponents[i+1]);
+        PipelineComponent<T>* ptr = &pipelineComponents[i+1];
+        PipelineComponent<T> current = pipelineComponents[i];
+        current.joinOutput(ptr);
     }
+
     return pipelineComponents;
 }
 
@@ -26,16 +33,19 @@ bool baseAssemblyTest() {
     PipelineComponent<T> entry = pipelineComponents[0];
     int index = 1;
     while (true) {
-        if (entry.output != pipelineComponents[index]) {
+        if (entry.output != &pipelineComponents[index]) {
             return false;
         }
-        if (entry.output == pipelineComponents[pipelineComponents.size() - 1]) {
+        if (entry.output == &pipelineComponents[pipelineComponents.size() - 1]) {
             break;
         }
+        entry = *entry.output;
+        index++;
     }
     return true;
 
 }
+
 bool basicFlowTest() {
     int state = 1;
     vector<PipelineComponent<int>> pipelineComponents = buildBasicPipeline<int>();
@@ -54,10 +64,10 @@ bool basicFlowTest() {
 
 
 
-
 int main() {
     baseAssemblyTest<int>();
     basicFlowTest();
+
 
 
 

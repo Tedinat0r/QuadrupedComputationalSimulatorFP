@@ -9,15 +9,15 @@
 
 namespace ConversionPipeline {
     template<typename T,typename obj>
-    class ConcreteValidatorListener<T>;
+    class ConcreteValidatorListener;
     template<typename T, typename obj>
     class Validator : public PipelineComponent<T> {
         ConcreteValidatorListener<T, obj> listener;
         void notifyListener(ValidatorStatusMessage<obj> message);
     public:
-        Validator<T>();
+        Validator();
         void setListener(ConcreteValidatorListener<T, obj> listener);
-        bool validate(T obj);
+        bool validate(obj object);
     };
 
 

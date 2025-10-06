@@ -11,6 +11,7 @@
 #include "../../../Message/Message.h"
 #include "Parsers/BlockerParser.h"
 #include "Parsers/HeaderParser.h"
+#include "BoundingBox/BoundingBox.h"
 
 using std::vector;
 using std::map;
@@ -27,8 +28,8 @@ namespace ConversionPipeline {
 
         void delegate(vector<vector<vector<int>>> rawData, BodyProcessor delegatee);
         map<string, vector<int>> findModelCuboid(obj file);
-        void getBoundingBox(map<string, vector<int>> rawData);
-        map<string, vector<int>> scaleBB(map<string, vector<int>> boundingBox);
+        void getBoundingBox(vector<vector<int>> rawData);
+        BoundingBox scaleBB(vector<vector<int>> objData);
 
     public:
         Message<obj> processOBJ(obj file);

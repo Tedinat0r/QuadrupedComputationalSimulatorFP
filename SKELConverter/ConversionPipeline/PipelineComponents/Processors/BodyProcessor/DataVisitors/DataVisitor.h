@@ -6,10 +6,10 @@
 #define DATAVISITOR_H
 
 namespace ConversionPipeline {
-    template <typename target>
+    template <typename Target>
 class DataVisitor {
 
-    virtual void visit(target target);
+    virtual void visit(Target target);
 };
 
 } // ConversionPipeline

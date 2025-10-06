@@ -8,6 +8,7 @@
 #include <boost/pfr.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 using namespace std;
 
 namespace ConversionPipeline {
@@ -96,38 +97,55 @@ namespace ConversionPipeline {
             }
     };
     template<typename obj, typename T>
-    ConcreteValidatorListener<T, obj>* PipelineOrchestrator<obj, T>::readQueue(){
-        ConcreteValidatorListener<T, obj> *currentListener =this->validatorListenerQueue.Listeners.front;
-        return currentListener;
+    void PipelineOrchestrator<obj, T>::destroyTracker(std::string id) {
+        this->trackers.erase(id);
+    }
 
+
+
+    template<typename obj, typename T>
+    ConcreteValidatorListener<T, obj>* PipelineOrchestrator<obj, T>::readQueue(){
+        ConcreteValidatorListener<T, obj> *currentListener = this->validatorListenerQueue.Listeners.front;
+        return currentListener;
     };
+
     template<typename obj, typename T>
     void PipelineOrchestrator<obj, T>::progressPipeline() {
         ConcreteValidatorListener<T, obj>* currentListener = this->readQueue();
         ValidatorStatusMessage<obj> message = currentListener.message;
         this->updateTracker(message);
         string process = message.metadata["process"];
-        string nextProcess;
-        for (int i = 1; i < 4; i++) {
-            if (this->keyIndexes[i-1] == process) {
-                nextProcess = this->keyIndexes[i];
-            }
-        }
         this->pipelineComponentStatuses[process] = false;
         Validator<T, obj> validator = currentListener.validator;
-        T validatorState = validator.template state<T>;
-        if (!this->validatorStatuses[nextProcess].empty()) {
-            validator.flush();
-            this->validatorStatuses[nextProcess].push_back(validatorState);
-            validator.state = validatorStatuses[nextProcess].front();
-            validator.releaseState();
-            validatorStatuses[nextProcess].erase(validatorStatuses[nextProcess].begin());
+        T validatorState  = validator.template state<T>;
+        /*Insert cache bus logic, transfer state*/
+        if (process != "mmCalculator") {
+            string nextProcess;
+            for (int i = 1; i < 4; i++) {
+                if (this->keyIndexes[i-1] == process) {
+                    nextProcess = this->keyIndexes[i];
+                }
+            }
+            /*If next process has tasks in queue, takes passed process and adds to queue, sends 1st item in que
+             *to next pipeline component
+             */
+            if (!this->validatorStatuses[nextProcess].empty()) {
+                validator.flush();
+                this->validatorStatuses[nextProcess].push_back(validatorState);
+                validator.state = validatorStatuses[nextProcess].front();
+                validator.releaseState();
+                validatorStatuses[nextProcess].erase(validatorStatuses[nextProcess].begin());
+            }else {
+                validator.releaseState();
+            }
         }else {
-            validator.releaseState();
+            /*Tracker parsing logic */
+            std::string id = message.metadata["trackerID"];
+            this->destroyTracker(id);
         }
-        this->validatorListenerQueue.Listeners.pop_front();
-
+        this->validatorListenerQueue.Listeners.push_back(this->validatorListenerQueue.Listeners.pop_front());
     }
+
     template<typename obj, typename T>
     bool PipelineOrchestrator<obj, T>::checkQueues() {
         for (bool value : std::ranges::views::values(this->pipelineComponentStatuses)) {
@@ -154,10 +172,14 @@ namespace ConversionPipeline {
                  *
                  *
                  */
-                boost::uuids::uuid id = boost::uuids::random_generator()();
-                std::string id_string = boost::uuids::string_generator();
+                boost::uuids::random_generator gen;
+                boost::uuids::uuid uuid = gen();
+                std::string id = boost::uuids::to_string(uuid);
+                this->makeTracker(id);
+
             }
             this->progressPipeline();
+
 
         }
     }

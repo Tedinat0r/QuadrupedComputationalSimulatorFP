@@ -4,6 +4,7 @@
 
 #ifndef BLOCKERPARSER_H
 #define BLOCKERPARSER_H
+#include "OBJParser.h"
 
 
 namespace ConversionPipeline {
