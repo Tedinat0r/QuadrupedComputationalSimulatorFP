@@ -1,52 +1,55 @@
+set(CMAKE_CXX_STANDARD 20)
 cmake_minimum_required(VERSION 3.31)
 project(QuadrupedSimulator)
 
-set(CMAKE_CXX_STANDARD 20)
-
 add_executable(QuadrupedSimulator main.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/PipelineComponent.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/PipelineComponent.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/Processor.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/Processor.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Validators/Validator.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Validators/Validator.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ConverterTracker.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/PipelineOrchestrator.cpp
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/PipelineOrchestrator.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/DLQScheduler.cpp
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/DLQScheduler.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListenerQueue.cpp
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListenerQueue.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ValidatorListener.cpp
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ValidatorListener.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.tpp
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Tracker.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Bodies.h
-        SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Joint.h
-        SKELConverter/ConversionPipeline/Message/Message.cpp
-        SKELConverter/ConversionPipeline/Message/Message.h
-        SKELConverter/ConversionPipeline/Message/ValidatorStatusMessage.cpp
-        SKELConverter/ConversionPipeline/Message/ValidatorStatusMessage.h
-        SKELConverter/ConversionPipeline/ConversionPipeline.cpp
-        SKELConverter/ConversionPipeline/ConversionPipeline.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BodyProcessor.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BodyProcessor.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/OBJParser.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/OBJParser.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/HeaderParser.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/HeaderParser.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/BlockerParser.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/BlockerParser.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/DataVisitor.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/DataVisitor.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/FaceAssembler.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/FaceAssembler.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/GraphMaker.cpp
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/GraphMaker.h
-        SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BoundingBox/BoundingBox.h
-        SKELConverter/ConversionPipeline/Tests/PipelineComponents/PipelineComponentFlowTests.cpp
-        SKELConverter/ConversionPipeline/Tests/IntegrationTests/PipelineMessageTests/PipelineMessageTests.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/PipelineComponent.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/PipelineComponent.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/Processor.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/Processor.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Validators/Validator.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Validators/Validator.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ConverterTracker.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/PipelineOrchestrator.cpp
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/PipelineOrchestrator.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/DLQScheduler.cpp
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/DLQScheduler.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListenerQueue.cpp
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListenerQueue.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ValidatorListener.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.cpp
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ValidatorListener/ConcreteValidatorListener.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Tracker.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Bodies.h
+        src/SKELConverter/ConversionPipeline/PipelineOrchestrator/ProgressTracker/Joint.h
+        src/SKELConverter/ConversionPipeline/Message/Message.cpp
+        src/SKELConverter/ConversionPipeline/Message/Message.h
+        src/SKELConverter/ConversionPipeline/Message/ValidatorStatusMessage.cpp
+        src/SKELConverter/ConversionPipeline/Message/ValidatorStatusMessage.h
+        src/SKELConverter/ConversionPipeline/CPipeline.cpp
+        src/SKELConverter/ConversionPipeline/CPipeline.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BodyProcessor.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BodyProcessor.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/OBJParser.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/OBJParser.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/HeaderParser.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/HeaderParser.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/BlockerParser.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/Parsers/BlockerParser.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/DataVisitor.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/DataVisitor.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/FaceAssembler.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/FaceAssembler.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/GraphMaker.cpp
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/DataVisitors/GraphMaker.h
+        src/SKELConverter/ConversionPipeline/PipelineComponents/Processors/BodyProcessor/BoundingBox/BoundingBox.h
+
 )
 
-target_include_directories(QuadrupedSimulator PRIVATE  C:/Users/teddy/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include)
+target_include_directories(QuadrupedSimulator PRIVATE C:/Users/teddy/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/include
+PRIVATE C:/Users/teddy/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share)
+set(Catch2_DIR C:/Users/teddy/.vcpkg-clion/vcpkg/installed/x64-mingw-dynamic/share/catch2)
+find_package(Catch2 CONFIG REQUIRED)
+
+add_subdirectory(tests)
+
